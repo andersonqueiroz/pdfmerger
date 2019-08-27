@@ -19,7 +19,7 @@ class PdfMerger:
         
         merger.write(os.path.join(target_directory, self.output_filename))
         merger.close()
-        print(f"Merged files in {target_directory}")
+        print("Merged files in " + target_directory)
 
     def get_content_folders(self, target_directory=''):
         directories = glob.glob(os.path.join(target_directory, '*', ''))
