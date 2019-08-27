@@ -1,10 +1,17 @@
 import os
 import sys
 import glob
+import datetime
+import logging
+
 from PyPDF2 import PdfFileMerger
 
 class PdfMerger:
     output_filename = 'agrupado.pdf'
+
+    def __init__(self):
+        log_filename = str(datetime.datetime.now().date()) + "-execution.log"
+        logging.basicConfig(filename=log_filename,level=logging.INFO)
 
     def merge_pdfs_from_folder(self, target_directory):
         pdfs = sorted(glob.glob(os.path.join(target_directory, '*.pdf')))
@@ -20,7 +27,8 @@ class PdfMerger:
         
         merger.write(os.path.join(target_directory, self.output_filename))
         merger.close()
-        print("Merged files in " + target_directory)
+
+        logging.info("Merged files in " + target_directory)
 
     def get_content_folders(self, target_directory=''):
         directories = glob.glob(os.path.join(target_directory, '*', ''))
