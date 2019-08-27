@@ -7,7 +7,7 @@ class PdfMerger:
     output_filename = 'agrupado.pdf'
 
     def merge_pdfs_from_folder(self, target_directory):
-        pdfs = glob.glob(os.path.join(target_directory, '*.pdf'))
+        pdfs = sorted(glob.glob(os.path.join(target_directory, '*.pdf')))
         
         if len(pdfs) <= 1:
             return
@@ -15,7 +15,8 @@ class PdfMerger:
         merger = PdfFileMerger()
 
         for pdf in pdfs:
-            merger.append(pdf)
+            if not pdf.endswith(self.output_filename):
+                merger.append(pdf)
         
         merger.write(os.path.join(target_directory, self.output_filename))
         merger.close()
