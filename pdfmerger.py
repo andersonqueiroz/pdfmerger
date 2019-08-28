@@ -15,8 +15,9 @@ class PdfMerger:
 
     def merge_pdfs_from_folder(self, target_directory):
         pdfs = sorted(glob.glob(os.path.join(target_directory, '*.pdf')))
+        merged_list = glob.glob(os.path.join(target_directory, self.output_filename))
         
-        if len(pdfs) <= 1:
+        if len(pdfs) <= 1 or len(merged_list) > 0:
             return
             
         merger = PdfFileMerger()
